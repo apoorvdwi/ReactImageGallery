@@ -35,14 +35,15 @@ const SearchPhotos = () => {
 
   useEffect(() => {
     (async () => {
+      if (query === '') {
+        setPics(initialData);
+        return;
+      }
       await unsplash.search
         .getPhotos({ query: query, perPage: ImageCount })
         .then((json) => {
           setPics(json.response.results);
         });
-      if (query === '') {
-        setPics(initialData);
-      }
     })();
   }, [query, ImageCount, initialData]);
 
